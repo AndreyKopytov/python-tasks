@@ -1,0 +1,33 @@
+# Задача: средний балл с проверками
+
+scores_input = input("Введите оценки через пробел: ").split()
+
+# Проверка пустого ввода — отдельное сообщение по условию
+if len(scores_input) == 0:
+    print("Ошибка: вы не ввели ни одной оценки")
+else:
+    total = 0
+    is_valid = True   # флаг: пока считаем, что всё корректно
+
+    for score in scores_input:
+        # Проверяем, что это число, через try/except
+        try:
+            num = int(score)
+        except ValueError:
+            print(f"Ошибка: '{score}' — это не число")
+            is_valid = False
+            break
+
+        # Проверяем диапазон
+        if num < 1 or num > 5:
+            print("Ошибка: оценка вне диапазона")
+            is_valid = False
+            break
+
+        # Только теперь прибавляем число (а не строку!)
+        total += num
+
+    # Выводим средний балл только если всё прошло успешно
+    if is_valid:
+        average = total / len(scores_input)
+        print(f"Средний балл: {average}")
